@@ -3,40 +3,35 @@
 This is a slightly enhanced version of https://github.com/gonespy/bstormps3 which changes the following:
 
 - Supports server listing: For supported games, users connected to the same fargonespy instance can see and join
-  each other's games.
+  each other's games
 - Works on modern versions of Java (the original version only worked with Java 8 JRE)
-- Fixes some performance issues that caused the server to unnecessarily use a lot of CPU.
+- Fixes some performance issues that caused the server to unnecessarily use a lot of CPU
 
-# Usage
+# Docker
 
-## Windows
-
-First, make sure you have a recent version of Java installed from https://www.oracle.com/java/technologies/downloads/
-
-Download the latest fargonespy jar & dns exe files
-from https://gitlab.com/fargonespy1/fargonespy/-/tree/master/release?ref_type=heads
-
-First run `dns-<version>.exe` which will start a simple DNS server that will instruct your PS3 to send gamespy traffic to
-the fargonespy server that will be started in the next step.
-
-Then double-click on the downloaded `fargonespy-<version>.jar` file which, after a couple of seconds, should open a web
-browser with information about configuring your PS3 DNS settings.
-
-## Docker
-
-Just clone repo and run with docker-compose. Docker build Java
-and Go code and startup application. Two knobs you can change
+Just clone repo and run with `docker compose`. Docker will build Java
+and Go code and startup applications. Two knobs you can change
 is (edit file `docker-compose.yml`):
 
-* `ANSWER_IP=192.168.1.100` - is your IP address where Fargonespy is answer
+* `ANSWER_IP=192.168.1.100` - is your IP address where Fargonespy is answer.
+  *  If you play on LAN - this is your computer IP
+  * If you play over Internet - this is you virtual/dedicated server public IP
 * `FORWARD_IP=8.8.8.8:53` - is DNF forwarder for any other (such as PSN)
 records. Should be in `inet:port` format
 
 ```shell
-√ MacBook % git clone git@github.com:fargonespy/fargonespy.git
+√ MacBook % git clone https://github.com/k0ste/fargonespy.git
 √ MacBook % cd fargonespy
 √ MacBook % docker compose up
 ```
+
+Server is UP. Setup DNS to `ANSWER_IP` address and play!
+
+# Ports used by the server
+
+TCP: 80, 443, 28910, 29900, 29901, 29920
+
+UDP: 53, 27900, 27901
 
 # Tested games
 
@@ -72,10 +67,6 @@ records. Should be in `inet:port` format
 | WRC FIA World Rally Championship          | No          | Login doesn't work.                                                                                                                                             |
 | WRC 2: FIA World Rally Championship       | No          | Login doesn't work.                                                                                                                                             |
 
-# Ports used by the server
-
-TCP: 80, 443, 28910, 29900, 29901, 29920
-UDP: 53, 27900, 27901
 
 # Credits
 
